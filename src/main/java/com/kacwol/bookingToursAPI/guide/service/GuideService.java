@@ -31,6 +31,7 @@ public class GuideService {
         return guideDataRepo.findAll();
     }
 
+    // TODO test
     public void addGuide(GuideRegistrationData data) {
         if(userDataRepo.existsByUsername(data.getUsername())) throw new UserAlreadyExistsException("User with given username already exists.");
 
@@ -38,7 +39,7 @@ public class GuideService {
                 null,
                 data.getUsername(),
                 encoder.encode(data.getPassword()),
-                List.of("USER","GUIDE")
+                List.of("GUIDE")
                 )
         );
 

@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 public class DestinationService {
 
-
     private final DestinationRepo repo;
 
     private final DestinationMapper mapper;
@@ -41,9 +40,9 @@ public class DestinationService {
     public void changeName(Long id, String name) {
         Destination temp = getEntityById(id);
         repo.save(new Destination(
-                temp.getId(),
-                name,
-                temp.getDescription()
+                        temp.getId(),
+                        name,
+                        temp.getDescription()
                 )
         );
     }
@@ -51,9 +50,9 @@ public class DestinationService {
     public void changeDescription(Long id, String description) {
         Destination temp = getEntityById(id);
         repo.save(new Destination(
-                temp.getId(),
-                temp.getName(),
-                description
+                        temp.getId(),
+                        temp.getName(),
+                        description
                 )
         );
     }

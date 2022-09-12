@@ -1,6 +1,5 @@
 package com.kacwol.bookingToursAPI.security;
 
-import com.kacwol.bookingToursAPI.security.userdata.UserData;
 import com.kacwol.bookingToursAPI.security.userdata.UserDataRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -33,9 +30,9 @@ public class SecurityConfig {
     public AppUserDetailsService getUserDetailsService() {
         AppUserDetailsService userDetailsService = new AppUserDetailsService(userDataRepo, getBCryptEncoder());
 
-        userDataRepo.save(new UserData(1L,"admin", getBCryptEncoder().encode("admin"), List.of("ADMIN")));
+        //userDataRepo.save(new UserData(1L,"admin", getBCryptEncoder().encode("admin"), List.of("ADMIN")));
 
-        userDataRepo.save(new UserData(2L,"user", getBCryptEncoder().encode("user"), List.of("USER")));
+        //userDataRepo.save(new UserData(2L,"user", getBCryptEncoder().encode("user"), List.of("USER")));
 
         return userDetailsService;
     }

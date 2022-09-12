@@ -58,24 +58,18 @@ public class ReservationService {
         ));
     }
 
-
     public void offerNewPrice(Authentication auth, Long offerId, double price) {
 
         ReservationOffer offer = offerService.getEntityById(offerId);
 
         if (userService.containsAuthority(auth, "ADMIN")) {
             offer.adminOffer(price);
-            offerService.addOffer(offer);
-
-
         } else {
-            ifClientHasAuthority(auth, offer);
+            checkClientHasAccessToOffer(auth, offer);
 
             offer.clientOffer(price);
-            offerService.addOffer(offer);
-
         }
-
+        offerService.addOffer(offer);
     }
 
     public void agree(Authentication auth, Long offerId) {
@@ -85,7 +79,7 @@ public class ReservationService {
         if(userService.containsAuthority(auth, "ADMIN")){
             offer.agreeAdmin();
         } else {
-            ifClientHasAuthority(auth, offer);
+            checkClientHasAccessToOffer(auth, offer);
             offer.agreeClient();
         }
 
@@ -98,13 +92,12 @@ public class ReservationService {
         );
     }
 
-    private void ifClientHasAuthority(Authentication auth, ReservationOffer offer) {
+    private void checkClientHasAccessToOffer (Authentication auth, ReservationOffer offer) {
         UserData userData = userService.getEntityByUsername(auth.getName());
         ClientData clientData = clientService.getEntityByUserId(userData.getId());
         if(!clientData.equals(offer.getClientData())){
-            throw new UnauthorizedFunctionException("You don't have authority to this offer.");
+            throw new UnauthorizedFunctionException("You don't have access to this offer.");
         }
     }
-
 
 }

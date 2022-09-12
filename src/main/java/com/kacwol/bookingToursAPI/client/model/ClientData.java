@@ -2,6 +2,7 @@ package com.kacwol.bookingToursAPI.client.model;
 
 import com.kacwol.bookingToursAPI.security.userdata.UserData;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
@@ -16,6 +17,7 @@ import java.util.Objects;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Getter
 public class ClientData {
 

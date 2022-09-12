@@ -2,8 +2,10 @@ package com.kacwol.bookingToursAPI.reservation.model;
 
 import com.kacwol.bookingToursAPI.client.model.ClientData;
 import com.kacwol.bookingToursAPI.exception.OfferAlreadyAcceptedException;
+import com.kacwol.bookingToursAPI.exception.WrongPriceException;
 import com.kacwol.bookingToursAPI.tour.model.Tour;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +18,7 @@ import javax.persistence.ManyToOne;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Getter
 public class ReservationOffer {
 
@@ -49,8 +52,9 @@ public class ReservationOffer {
 
     public void clientOffer(double price) {
 
-        if(bothAgreed()) throw new RuntimeException();
-        if(price > tour.getInitialPrice()) throw  new RuntimeException();
+        if(bothAgreed()) throw new OfferAlreadyAcceptedException("Both sides already agreed.");
+
+        if(price > tour.getInitialPrice()) throw new WrongPriceException("Offered price cannot be higher than initial price.");
 
         this.price = price;
 
@@ -63,8 +67,7 @@ public class ReservationOffer {
 
         if(bothAgreed()) throw new OfferAlreadyAcceptedException("Both sides already agreed.");
 
-
-        if(price > tour.getInitialPrice()) throw  new RuntimeException();
+        if(price > tour.getInitialPrice()) throw new WrongPriceException("Offered price cannot be higher than initial price.");
 
         this.price = price;
 
