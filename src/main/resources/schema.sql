@@ -1,37 +1,19 @@
-    alter table client_data drop constraint client_user_data;
 
-        alter table guide_data drop constraint guide_user_data;
+        drop table if exists client_data cascade;
 
-        alter table reservation drop constraint reservation_client_data;
+        drop table if exists destination cascade;
 
-        alter table reservation drop constraint reservation_tour;
+        drop table if exists guide_data cascade;
 
-        alter table reservation_offer drop constraint offer_client_data;
+        drop table if exists reservation cascade;
 
-        alter table reservation_offer drop constraint offer_tour;
+        drop table if exists reservation_offer cascade;
 
-        alter table tour drop constraint tour_destination;
+        drop table if exists tour cascade;
 
-        alter table tour drop constraint tour_guide_data;
+        drop table if exists user_data cascade;
 
-        alter table user_data_roles drop constraint roles_user_data;
-
-        drop table client_data cascade;
-
-        drop table destination cascade;
-
-        drop table guide_data cascade;
-
-        drop table reservation cascade;
-
-        drop table reservation_offer cascade;
-
-        drop table tour cascade;
-
-        drop table user_data cascade;
-
-        drop table user_data_roles cascade;
-
+        drop table if exists user_data_roles cascade;
 
     create table user_data (
            id  bigserial not null,
@@ -84,9 +66,9 @@
 
     create table tour (
        id  bigserial not null,
-        end_date timestamp,
+        end_date date,
         initial_price float8 not null,
-        start_date timestamp,
+        start_date date,
         destination_id int8,
         guide_id int8,
         primary key (id)
